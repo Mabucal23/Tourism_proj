@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Low-impact adventures, lake stays, and wild encounters at Fernhaven Lake Nature Reserve.">
+    <title>Fernhaven Lake | Wild, Well Kept</title>
+    <style>
+        :root {
+            --forest: #173f35;
+            --forest-deep: #0d2b25;
+            --moss: #6f8761;
+            --sage: #dfe7d6;
+            --clay: #b86f4a;
+            --sand: #f3eee5;
+            --paper: #fbfaf7;
+            --ink: #24332d;
+            --muted: #65716a;
+            --line: #d8ded5;
+            --shadow: 0 18px 48px rgba(25, 54, 43, 0.1);
+            --radius: 14px;
+            --transition: all 0.3s ease;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; }
+        .container { width: min(1140px, calc(100% - 40px)); margin: 0 auto; }
+        
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--clay);
+            font: 700 0.76rem/1.2 Arial, sans-serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        h1, h2, h3, p { margin-top: 0; }
+        h1, h2, h3 { line-height: 1.1; }
+        h1 { max-width: 760px; margin-bottom: 24px; font-size: clamp(3.2rem, 7vw, 6.8rem); font-weight: 500; letter-spacing: -0.04em; }
+        h2 { margin-bottom: 18px; color: var(--forest); font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 500; letter-spacing: -0.03em; }
+        h3 { margin-bottom: 10px; color: var(--forest); font-size: 1.45rem; font-weight: 600; }
+        .section { padding: 110px 0; }
+        .section-intro { max-width: 620px; margin-bottom: 42px; color: var(--muted); font-size: 1.1rem; }
+        
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 0 24px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: var(--clay);
+            color: #fff;
+            font: 700 0.8rem Arial, sans-serif;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .button:hover { transform: translateY(-2px); background: #9c593b; box-shadow: 0 4px 12px rgba(184, 111, 74, 0.3); }
+        .button-light { border-color: rgba(255, 255, 255, 0.6); background: transparent; }
+        .button-light:hover { background: #fff; color: var(--forest); }
+
+        /* Header & Navigation */
+        .site-header { 
+            position: fixed; 
+            width: 100%;
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid rgba(216, 222, 213, 0.7); 
+            background: rgba(251, 250, 247, 0.94); 
+            backdrop-filter: blur(14px); 
+            transition: var(--transition);
+        }
+        .site-header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-bottom: transparent; }
+        .nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
+        .brand { color: var(--forest); font-size: 1.25rem; font-weight: 700; text-decoration: none; z-index: 101; }
+        .brand span { display: block; color: var(--clay); font: 700 0.64rem Arial, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; }
+        
+        .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 20px; list-style: none; margin: 0; padding: 0; font: 700 0.72rem Arial, sans-serif; letter-spacing: 0.04em; }
+        .nav-links a { text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--clay); }
+        
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.8rem; color: var(--forest); cursor: pointer; z-index: 101; }
+
+        /* Sections */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: end; overflow: hidden; background: linear-gradient(90deg, rgba(11, 42, 34, 0.88), rgba(11, 42, 34, 0.22)), url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=85") center/cover; color: #fff; }
+        .hero-content { width: min(1140px, calc(100% - 40px)); margin: 0 auto; padding: 120px 0 86px; }
+        .hero h1 { color: #fff; }
+        .hero-copy { max-width: 550px; margin-bottom: 32px; color: #edf2e9; font-size: 1.18rem; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-note { margin: 42px 0 0; color: #dfe7d6; font: 700 0.72rem Arial, sans-serif; letter-spacing: 0.11em; text-transform: uppercase; }
+
+        .about { background: var(--sage); }
+        .about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 90px; align-items: start; }
+        .mission { max-width: 680px; color: var(--forest); font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.25; }
+        .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 38px; }
+        .value { padding-top: 18px; border-top: 2px solid var(--moss); }
+        .value strong { display: block; margin-bottom: 8px; color: var(--forest); font-size: 1.05rem; }
+        .value p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+
+        .offerings-grid, .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .offering, .package, .review { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; transition: var(--transition); }
+        .offering:hover, .package:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .offering { overflow: hidden; display: flex; flex-direction: column; }
+        .offering-image { width: 100%; height: 210px; object-fit: cover; transition: transform 0.5s ease; }
+        .offering:hover .offering-image { transform: scale(1.05); }
+        .offering-body, .package-body { padding: 26px; flex-grow: 1; display: flex; flex-direction: column; }
+        .offering-body p, .package-body p { color: var(--muted); flex-grow: 1; }
+        .price { display: block; margin-top: 22px; color: var(--clay); font: 700 0.8rem Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+        
+        .package { position: relative; }
+        .package:first-child { background: var(--forest); color: #edf2e9; border-color: var(--forest); }
+        .package:first-child h3, .package:first-child p, .package:first-child li { color: #edf2e9; }
+        .package h3 { padding-right: 60px; }
+        .duration { position: absolute; top: 26px; right: 26px; color: var(--clay); font: 700 0.7rem Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+        .package ul { margin: 18px 0 0; padding-left: 18px; color: var(--muted); }
+
+        .gallery-section { background: var(--sand); }
+        .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; gap: 12px; }
+        .gallery figure { position: relative; overflow: hidden; margin: 0; border-radius: 8px; background: var(--sage); }
+        .gallery figure:nth-child(2), .gallery figure:nth-child(5) { grid-row: span 2; }
+        .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+        .gallery figure:hover img { transform: scale(1.04); }
+        .gallery figcaption { position: absolute; right: 10px; bottom: 8px; left: 10px; color: #fff; font: 700 0.65rem Arial, sans-serif; letter-spacing: 0.08em; text-shadow: 0 1px 6px #000; text-transform: uppercase; }
+
+        .location-grid, .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 68px; align-items: start; }
+        .info-list { display: grid; gap: 22px; margin: 30px 0 0; }
+        .info-list div { padding-left: 18px; border-left: 2px solid var(--clay); }
+        .info-list dt { margin-bottom: 4px; color: var(--forest); font: 700 0.74rem Arial, sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+        .info-list dd { margin: 0; color: var(--muted); }
+        .map-frame { width: 100%; min-height: 400px; border: 0; border-radius: var(--radius); filter: saturate(0.7); }
+        
+        .guide { background: var(--forest); color: #edf2e9; }
+        .guide h2, .guide h3 { color: #fff; }
+        .guide .section-intro, .guide p { color: #c5d4c5; }
+        .guide-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .guide-item { padding-top: 18px; border-top: 1px solid #6e8b76; }
+
+        .faq-review { background: var(--sand); }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+        details { border-top: 1px solid var(--line); }
+        details:last-child { border-bottom: 1px solid var(--line); }
+        summary { padding: 18px 0; color: var(--forest); cursor: pointer; font-size: 1.05rem; font-weight: 700; list-style-position: inside; outline: none; }
+        details p { margin: 0 0 18px 25px; color: var(--muted); }
+        .reviews { display: grid; gap: 14px; }
+        .review { padding: 22px; }
+        .review blockquote { margin: 0 0 12px; color: var(--forest); font-size: 1.08rem; }
+        .review cite { color: var(--clay); font: 700 0.7rem Arial, sans-serif; letter-spacing: 0.09em; text-transform: uppercase; }
+
+        .booking { background: #fff; }
+        form { display: grid; gap: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        label { display: grid; gap: 7px; color: var(--forest); font: 700 0.74rem Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+        input, textarea { width: 100%; padding: 14px 15px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font: 1rem Georgia, serif; transition: border-color 0.2s; }
+        input:focus, textarea:focus { outline: none; border-color: var(--clay); }
+        textarea { min-height: 145px; resize: vertical; }
+        .form-note { margin: 0; color: var(--muted); font-size: 0.85rem; }
+
+        footer { padding: 48px 0 28px; background: var(--forest-deep); color: #dfe7d6; }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; padding-bottom: 38px; }
+        footer h3 { color: #fff; font-size: 1.3rem; }
+        footer p { color: #afc1b1; }
+        footer a { color: #fff; text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: #e1a07f; }
+        .socials { display: flex; flex-wrap: wrap; gap: 14px; font: 700 0.74rem Arial, sans-serif; }
+        .copyright { margin: 0; padding-top: 24px; border-top: 1px solid #355248; color: #91a995; font: 0.78rem Arial, sans-serif; }
+
+        /* Animation Classes */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .about-grid, .location-grid, .booking-grid, .faq-grid { grid-template-columns: 1fr; gap: 48px; }
+            .gallery { grid-template-columns: repeat(3, 1fr); }
+            .gallery figure:nth-child(5) { grid-row: span 1; }
+        }
+
+        @media (max-width: 800px) {
+            .section { padding: 76px 0; }
+            .nav { position: relative; padding: 15px 0; }
+            
+            /* Mobile Nav Styling */
+            .menu-toggle { display: block; }
+            .nav-links { 
+                position: absolute; 
+                top: 100%; 
+                left: -20px; 
+                width: calc(100% + 40px); 
+                background: var(--paper); 
+                flex-direction: column; 
+                align-items: center; 
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease, padding 0.4s ease;
+                box-shadow: 0 15px 20px rgba(0,0,0,0.05);
+            }
+            .nav-links.active { max-height: 400px; padding: 20px 0; border-top: 1px solid var(--line); }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; padding: 12px; font-size: 1rem; }
+
+            .hero { min-height: 80vh; }
+            .offerings-grid, .packages-grid { grid-template-columns: 1fr 1fr; }
+            .values, .guide-grid { grid-template-columns: 1fr; gap: 18px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .offerings-grid, .packages-grid { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; }
+            h1 { font-size: 3.2rem; }
+            .hero-content { padding: 90px 0 55px; }
+            .form-row, .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav container" aria-label="Primary navigation">
+            <a class="brand" href="#home">Fernhaven <span>Lake Nature Reserve</span></a>
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+            <ul class="nav-links">
+                <li><a href="#about">Our story</a></li>
+                <li><a href="#experiences">Experiences</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#visit">Plan a visit</a></li>
+                <li><a href="#booking">Book</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content reveal">
+                <p class="eyebrow">A gentler way into the wild</p>
+                <h1>Find your quiet place.</h1>
+                <p class="hero-copy">Slow down beside Fernhaven Lake, where ancient forest, clear water, and curious wings make every day feel a little wider.</p>
+                <div class="hero-actions"><a class="button" href="#booking">Book now</a><a class="button button-light" href="#experiences">Explore experiences</a></div>
+                <p class="hero-note">Protected lake &middot; Community-led &middot; Leave no trace</p>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="container about-grid reveal">
+                <div><p class="eyebrow">Our promise</p><h2>Keep it wild. Keep it local.</h2></div>
+                <div><p class="mission">Fernhaven exists to share the restorative power of nature while protecting the place that makes it possible.</p>
+                    <div class="values">
+                        <div class="value"><strong>Leave no trace</strong><p>We tread lightly, pack out what we carry in, and keep wildlife wild.</p></div>
+                        <div class="value"><strong>Restore together</strong><p>A portion of every booking supports habitat restoration and lake monitoring.</p></div>
+                        <div class="value"><strong>Meet the makers</strong><p>Local guides, cooks, artists, and growers shape every guest experience.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="experiences">
+            <div class="container reveal">
+                <p class="eyebrow">Small adventures, big air</p><h2>Ways to wander</h2><p class="section-intro">Choose a low-impact experience led by people who know every reed bed, ridgeline, and secret swimming cove.</p>
+                <div class="offerings-grid">
+                    <article class="offering"><img class="offering-image" src="https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=900&q=80" alt="Colorful bird resting on a branch" loading="lazy"><div class="offering-body"><h3>Dawn birdwatching</h3><p>Follow a naturalist along the reed beds as the reserve wakes up. Binoculars, field notes, and a hot drink included.</p><span class="price">From $38 / person</span></div></article>
+                    <article class="offering"><img class="offering-image" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80" alt="Kayak floating on a calm lake" loading="lazy"><div class="offering-body"><h3>Quiet-water kayak</h3><p>Paddle the sheltered north shore with a local guide, learning how the lake's wetlands protect its clear water.</p><span class="price">From $52 / person</span></div></article>
+                    <article class="offering"><img class="offering-image" src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=900&q=80" alt="Sunlight filtering through a green forest" loading="lazy"><div class="offering-body"><h3>Forest light walk</h3><p>A relaxed photography walk through old-growth trails, timed for soft light and thoughtful composition.</p><span class="price">From $45 / person</span></div></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="packages">
+            <div class="container reveal">
+                <p class="eyebrow">Stay a little longer</p><h2>Three days, three ways</h2><p class="section-intro">Sample itineraries designed for unhurried mornings and meaningful time outdoors.</p>
+                <div class="packages-grid">
+                    <article class="package"><div class="package-body"><span class="duration">2 nights</span><h3>First light</h3><p>A gentle introduction to the reserve for curious weekenders.</p><ul><li>Guided sunrise birdwatch</li><li>One quiet-water kayak</li><li>Locally sourced breakfast each day</li><li>Trail map and naturalist briefing</li></ul><span class="price">Estimated $420 / guest</span></div></article>
+                    <article class="package"><div class="package-body"><span class="duration">3 nights</span><h3>Water & woodland</h3><p>The full Fernhaven rhythm, from lake edge to canopy.</p><ul><li>All three signature experiences</li><li>Forest bathing session</li><li>Community farm-to-table supper</li><li>Private cabin accommodation</li></ul><span class="price">Estimated $695 / guest</span></div></article>
+                    <article class="package"><div class="package-body"><span class="duration">1 day</span><h3>Wild pause</h3><p>A restorative day trip for guests passing through the valley.</p><ul><li>Naturalist-led lake loop</li><li>Picnic lunch from local producers</li><li>Short photography workshop</li><li>Park entry and equipment hire</li></ul><span class="price">Estimated $165 / guest</span></div></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section gallery-section" id="gallery">
+            <div class="container reveal">
+                <p class="eyebrow">Postcards from here</p><h2>A living landscape</h2>
+                <div class="gallery">
+                    <figure><img src="https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=1000&q=80" alt="Misty forest path" loading="lazy"><figcaption>Fern trail</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=1000&q=80" alt="Mountain lake surrounded by trees" loading="lazy"><figcaption>Fernhaven Lake</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Person walking through a sunlit field" loading="lazy"><figcaption>Open country</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?auto=format&fit=crop&w=1000&q=80" alt="Wooden canoe on a lake shore" loading="lazy"><figcaption>Quiet water</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80" alt="Layered green mountain landscape" loading="lazy"><figcaption>North ridge</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1000&q=80" alt="Tall trees in a dense green forest" loading="lazy"><figcaption>Old growth</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=80" alt="Golden sunlight over a meadow" loading="lazy"><figcaption>Golden hour</figcaption></figure>
+                    <figure><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" alt="Aerial view of forest and a winding river" loading="lazy"><figcaption>Watershed</figcaption></figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="visit">
+            <div class="container location-grid reveal">
+                <div>
+                    <p class="eyebrow">Before you arrive</p><h2>Meet us at the water's edge.</h2>
+                    <p class="section-intro">Fernhaven is a short drive from Calapan City, tucked into the lush foothills of the Mindoro watershed.</p>
+                    <dl class="info-list">
+                        <div><dt>Getting here</dt><dd>Take the Strong Republic Nautical Highway south from Calapan City, then follow the brown reserve signs for 12 miles. A shuttle runs from the main terminal on Fridays and Saturdays.</dd></div>
+                        <div><dt>Nearby attractions</dt><dd>Local waterfalls, the provincial farm trail, and historic heritage villages are all within 30 minutes.</dd></div>
+                        <div><dt>Reserve hours</dt><dd>Day visitors: 6:00 am to 8:00 pm. Guided activities meet at the Fernhaven Welcome Hut.</dd></div>
+                    </dl>
+                </div>
+                <!-- Interactive Map Tool (Required by Syllabus) -->
+                <iframe class="map-frame" title="Map showing the location of Fernhaven Lake Nature Reserve" src="https://www.google.com/maps?q=Naujan+Lake+National+Park&output=embed" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <section class="section guide">
+            <div class="container reveal">
+                <p class="eyebrow">A thoughtful field guide</p><h2>Travel well.</h2><p class="section-intro">A little preparation helps you stay comfortable, safe, and kind to the landscape.</p>
+                <div class="guide-grid">
+                    <div class="guide-item"><h3>Weather</h3><p>Expect cool mornings, warm afternoons, and quick showers. Bring layers, rain protection, sun cream, and shoes with good grip.</p></div>
+                    <div class="guide-item"><h3>Safety</h3><p>Stay on marked trails, check in with your guide, and carry water. Mobile coverage is limited around the eastern shore.</p></div>
+                    <div class="guide-item"><h3>Care for the reserve</h3><p>Keep dogs leashed, never feed wildlife, take all waste with you, and leave plants, stones, and feathers where you find them.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq-review">
+            <div class="container faq-grid reveal">
+                <!-- Customer Engagement FAQ Tool (Required by Syllabus) -->
+                <div>
+                    <p class="eyebrow">Good to know</p><h2>Questions, answered.</h2>
+                    <details><summary>Do I need previous kayaking experience?</summary><p>No. Our quiet-water trip is suitable for beginners, and every guest receives a safety briefing and personal flotation device.</p></details>
+                    <details><summary>What should I bring on a guided walk?</summary><p>Water, a light rain layer, sun protection, sturdy shoes, and your curiosity. We provide binoculars and shared field guides.</p></details>
+                    <details><summary>Can children join the experiences?</summary><p>Children aged eight and over are welcome on the birdwatch and forest walks. Kayakers must be ten or older.</p></details>
+                </div>
+                <div>
+                    <p class="eyebrow">From our guests</p><h2>Kind words.</h2>
+                    <div class="reviews">
+                        <article class="review"><blockquote>“The kind of quiet you can feel in your shoulders. Our guide knew every bird call and never rushed us.”</blockquote><cite>Amelia R. &middot; Bristol</cite></article>
+                        <article class="review"><blockquote>“Beautifully run, deeply local, and the picnic was a highlight. Fernhaven made sustainability feel inviting.”</blockquote><cite>Jon and Priya &middot; London</cite></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section booking" id="booking">
+            <div class="container booking-grid reveal">
+                <div>
+                    <p class="eyebrow">Start planning</p><h2>Make room for wonder.</h2>
+                    <p class="section-intro">Tell us what you are dreaming of and our local team will reply within two working days with availability and a tailored suggestion.</p>
+                </div>
+                <!-- Online Inquiry Form Tool (Required by Syllabus) -->
+                <form action="https://formspree.io/f/your-form-id" method="POST" id="bookingForm">
+                    <div class="form-row">
+                        <label for="name">Name<input id="name" name="name" type="text" autocomplete="name" required></label>
+                        <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+                    </div>
+                    <div class="form-row">
+                        <label for="arrival">Arrival date<input id="arrival" name="arrival" type="date" required></label>
+                        <label for="departure">Departure date<input id="departure" name="departure" type="date" required></label>
+                    </div>
+                    <label for="message">Your plans<textarea id="message" name="message" placeholder="Tell us about your group, interests, and preferred experience."></textarea></label>
+                    <p class="form-note">This form is ready for Formspree. Replace <strong>your-form-id</strong> in the action URL.</p>
+                    <button class="button" type="submit">Send inquiry</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid reveal">
+                <div>
+                    <a class="brand" href="#home">Fernhaven <span>Lake Nature Reserve</span></a>
+                    <p>Wild, well kept, and waiting for your next quiet adventure.</p>
+                </div>
+                <div>
+                    <h3>Contact</h3>
+                    <p><a href="mailto:hello@fernhaven.example">hello@fernhaven.example</a><br><a href="tel:+15550184732">+1 (555) 018-4732</a><br>14 Watershed Lane</p>
+                </div>
+                <div>
+                    <h3>Follow the seasons</h3>
+                    <div class="socials">
+                        <a href="#instagram">Instagram</a>
+                        <a href="#facebook">Facebook</a>
+                        <a href="#youtube">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2026 Fernhaven Lake Nature Reserve. A fictional destination created for demonstration.</p>
+        </div>
+    </footer>
+
+    <!-- Modern JavaScript Implementation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Mobile Menu Toggle Logic
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // Change icon based on state
+                menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+            });
+
+            // Close mobile menu when a link is clicked
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuToggle.innerHTML = '&#9776;';
+                });
+            });
+
+            // 2. Dynamic Sticky Header (Adds shadow when scrolling down)
+            const header = document.querySelector('.site-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // 3. Scroll Reveal Animation using Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15, // Trigger when 15% of the element is visible
+                rootMargin: "0px 0px -50px 0px" // Triggers slightly before it enters the viewport
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        // Stop observing once the animation is complete
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+
+        });
+    </script>
+</body>
+</html>
